@@ -10,6 +10,48 @@
 
 <body>
     <script>
+        var questionTemplate = {
+            questions: "What year is it?",
+            answers: [2021, 2022, 2020],
+            correctAnswer: 2021
+
+        };
+
+
+        /*CONSTRUCTOR FUNCTION*/
+        var Question = function (questions, answers, correctAnswer) {
+            this.questions = questions;
+            this.answers = answers;
+            this.correctAnswer = correctAnswer;
+
+
+        }
+
+        Question.prototype.randomQuestion = function () {
+            let string = "";
+            for (let i = 0; i < this.answers.length; i++) {
+                this.answers[i] = i + "-" + this.answers[i] + "\n";
+                string += this.answers[i]
+
+            }
+            console.log(this.questions + "\n" + string)
+        }
+
+
+        var question1 = new Question("Is sun bigger than earth?", ["Yes", "No", "Maybe"], "Yes");
+        var question2 = new Question("What is the capital of Spain?", ["Barcelona", "Madrid", "Sevilla"], "Madrid");
+        var question3 = new Question("what is 2+2?", ["4", "42", "21"], "4");
+
+
+        let questionsArray = [question1, question2, question3];
+
+
+        questionsArray[Math.floor(Math.random() * 3)].randomQuestion();
+
+
+
+
+
 
     </script>
 </body>
