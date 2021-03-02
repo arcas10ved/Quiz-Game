@@ -27,26 +27,40 @@
 
         }
 
+
         Question.prototype.randomQuestion = function () {
-            let string = "";
+            let promptAnswer;
+            let organizedAnswers = "";
             for (let i = 0; i < this.answers.length; i++) {
-                this.answers[i] = i + "-" + this.answers[i] + "\n";
-                string += this.answers[i]
+                this.answers[i] = i + ":" + this.answers[i] + "\n";
+                organizedAnswers += this.answers[i];
 
             }
-            console.log(this.questions + "\n" + string)
+
+            console.log(this.questions + "\n" + organizedAnswers)
+            promptAnswer = prompt("What is your Answer? ");
+            if (promptAnswer == organizedAnswers[promptAnswer] && organizedAnswers[promptAnswer] == this.correctAnswer) {
+
+                console.log("You got it right!!");
+            } else {
+
+                console.log(organizedAnswers[promptAnswer])
+                console.log(promptAnswer)
+                console.log("Try again!")
+            }
         }
 
 
-        var question1 = new Question("Is sun bigger than earth?", ["Yes", "No", "Maybe"], "Yes");
+        var question1 = new Question("Is the sun bigger than earth?", ["Yes", "No", "Maybe"], "Yes");
         var question2 = new Question("What is the capital of Spain?", ["Barcelona", "Madrid", "Sevilla"], "Madrid");
-        var question3 = new Question("what is 2+2?", ["4", "42", "21"], "4");
+        var question3 = new Question("What is 2+2?", ["4", "42", "21"], "4");
+        var question4 = new Question("What year is it?", ["2021", "2022", "2020"], "2021");
+
+        let questionsArray = [question1, question2, question3, question4];
+        questionsArray[Math.floor(Math.random() * 4)].randomQuestion();
 
 
-        let questionsArray = [question1, question2, question3];
 
-
-        questionsArray[Math.floor(Math.random() * 3)].randomQuestion();
 
 
 
