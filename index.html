@@ -30,23 +30,23 @@
 
         Question.prototype.randomQuestion = function () {
             let promptAnswer;
-            let organizedAnswers = "";
+            let organizedAnswers = [];
             for (let i = 0; i < this.answers.length; i++) {
-                this.answers[i] = i + ":" + this.answers[i] + "\n";
-                organizedAnswers += this.answers[i];
+                this.answers[i] + "\n";
+                organizedAnswers.push(this.answers[i]);
 
             }
 
             console.log(this.questions + "\n" + organizedAnswers)
             promptAnswer = prompt("What is your Answer? ");
-            if (promptAnswer == organizedAnswers[promptAnswer] && organizedAnswers[promptAnswer] == this.correctAnswer) {
+
+            if (organizedAnswers[promptAnswer] == this.correctAnswer) {
 
                 console.log("You got it right!!");
             } else {
 
-                console.log(organizedAnswers[promptAnswer])
-                console.log(promptAnswer)
-                console.log("Try again!")
+                console.log("I'm sorry, " + this.correctAnswer + " was the correct answer!")
+                console.log("Try again!");
             }
         }
 
