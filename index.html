@@ -30,25 +30,35 @@
 
         Question.prototype.randomQuestion = function () {
             let promptAnswer;
-            let organizedAnswers = [];
+            let scoreCount = 0;
             for (let i = 0; i < this.answers.length; i++) {
                 this.answers[i] + "\n";
-                organizedAnswers.push(this.answers[i]);
-
             }
 
-            console.log(this.questions + "\n" + organizedAnswers)
-            promptAnswer = prompt("What is your Answer? ");
-
-            if (organizedAnswers[promptAnswer] == this.correctAnswer) {
-
+            console.log(this.questions + "\n" + this.answers)
+            promptAnswer = prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? ");
+            if (promptAnswer == "exit") {
+                return;
+            }
+            else if (this.answers[promptAnswer] == this.correctAnswer) {
                 console.log("You got it right!!");
+                console.log("You have a score of " + scoreCount + 1)
+                return function () {
+                    console.log(this.questions + "\n" + this.answers)
+                    promptAnswer = prompt("What is your Answer? ");
+                }
+
             } else {
 
                 console.log("I'm sorry, " + this.correctAnswer + " was the correct answer!")
-                console.log("Try again!");
+                console.log("You have a score of " + scoreCount)
+                return function () {
+                    console.log(this.questions + "\n" + this.answers)
+                    promptAnswer = prompt("What is your Answer? ");
+                }
             }
         }
+
 
 
         var question1 = new Question("Is the sun bigger than earth?", ["Yes", "No", "Maybe"], "Yes");
