@@ -10,6 +10,8 @@
 
 <body>
     <script>
+
+
         (function () {
             var questionTemplate = {
                 questions: "What year is it?",
@@ -44,20 +46,53 @@
             var question4 = new Question("What year is it?", ["2021", "2022", "2020"], 0);
 
             let questionsArray = [question1, question2, question3, question4];
-            let random = Math.floor(Math.random() * 4);
-            questionsArray[random].randomQuestion();
 
-            var promptAnswer = parseInt(prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? "))
-
-            Question.prototype.checkAnswer = function (ans) {
-                if (ans === this.correctAnswer) {
-                    console.log("Correct answer!");
-                } else {
-                    console.log("Wrong Answer:(!")
+            //USING CLOSURE AS POR ASIGNMENT
+            function score() {
+                var scoreCount = 0;
+                return function (correctAnswer) {
+                    if (correctAnswer) {
+                        scoreCount++;
+                    }
+                    return scoreCount;
                 }
             }
 
-            questionsArray[random].checkAnswer(promptAnswer)
+            var scoreHolder = score();
+
+            function nextQuestion() {
+
+                let random = Math.floor(Math.random() * 4);
+                questionsArray[random].randomQuestion();
+
+                var promptAnswer = prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? ");
+
+                Question.prototype.checkAnswer = function (ans, callback) {
+                    var scoreCount;
+                    if (ans === this.correctAnswer) {
+                        console.log("Correct answer!");
+                        scoreCount = callback(true);
+                    } else {
+                        console.log("Wrong Answer:(!");
+                        scoreCount = callback(false)
+                    }
+                    this.showScore(scoreCount);
+                }
+
+
+                Question.prototype.showScore = function (score) {
+                    console.log("Your score is " + score);
+                }
+
+                if (promptAnswer !== "exit") {
+                    questionsArray[random].checkAnswer(parseInt(promptAnswer), scoreHolder);
+
+                    nextQuestion();
+                }
+
+            }
+            nextQuestion();
+
 
         })();
 
