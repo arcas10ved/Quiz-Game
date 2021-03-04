@@ -10,69 +10,81 @@
 
 <body>
     <script>
-        var questionTemplate = {
-            questions: "What year is it?",
-            answers: [2021, 2022, 2020],
-            correctAnswer: 2021
+        (function () {
+            var questionTemplate = {
+                questions: "What year is it?",
+                answers: [2021, 2022, 2020],
+                correctAnswer: 2021
 
-        };
-
-
-        /*CONSTRUCTOR FUNCTION*/
-        var Question = function (questions, answers, correctAnswer) {
-            this.questions = questions;
-            this.answers = answers;
-            this.correctAnswer = correctAnswer;
+            };
 
 
-        }
+            /*CONSTRUCTOR FUNCTION*/
+            var Question = function (questions, answers, correctAnswer) {
+                this.questions = questions;
+                this.answers = answers;
+                this.correctAnswer = correctAnswer;
 
 
-        Question.prototype.randomQuestion = function () {
-            let promptAnswer;
-            let scoreCount = 0;
-            for (let i = 0; i < this.answers.length; i++) {
-                this.answers[i] + "\n";
             }
 
-            console.log(this.questions + "\n" + this.answers)
-            promptAnswer = prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? ");
-            if (promptAnswer == "exit") {
-                return;
-            }
-            else if (this.answers[promptAnswer] == this.correctAnswer) {
-                console.log("You got it right!!");
-                console.log("You have a score of " + scoreCount + 1)
-                return function () {
-                    console.log(this.questions + "\n" + this.answers)
-                    promptAnswer = prompt("What is your Answer? ");
-                }
 
-            } else {
+            Question.prototype.randomQuestion = function () {
+                console.log(this.questions);
+                for (let i = 0; i < this.answers.length; i++) {
+                    console.log(i + ": " + this.answers[i])
 
-                console.log("I'm sorry, " + this.correctAnswer + " was the correct answer!")
-                console.log("You have a score of " + scoreCount)
-                return function () {
-                    console.log(this.questions + "\n" + this.answers)
-                    promptAnswer = prompt("What is your Answer? ");
                 }
             }
-        }
+
+
+            var question1 = new Question("Is the sun bigger than earth?", ["Yes", "No", "Maybe"], 0);
+            var question2 = new Question("What is the capital of Spain?", ["Barcelona", "Madrid", "Sevilla"], 1);
+            var question3 = new Question("What is 2+2?", ["4", "42", "21"], 0);
+            var question4 = new Question("What year is it?", ["2021", "2022", "2020"], 0);
+
+            let questionsArray = [question1, question2, question3, question4];
+            let random = Math.floor(Math.random() * 4);
+            questionsArray[random].randomQuestion();
+
+            var promptAnswer = parseInt(prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? "))
+
+            Question.prototype.checkAnswer = function (ans) {
+                if (ans === this.correctAnswer) {
+                    console.log("Correct answer!");
+                } else {
+                    console.log("Wrong Answer:(!")
+                }
+            }
+
+            questionsArray[random].checkAnswer(promptAnswer)
+
+        })();
 
 
 
-        var question1 = new Question("Is the sun bigger than earth?", ["Yes", "No", "Maybe"], "Yes");
-        var question2 = new Question("What is the capital of Spain?", ["Barcelona", "Madrid", "Sevilla"], "Madrid");
-        var question3 = new Question("What is 2+2?", ["4", "42", "21"], "4");
-        var question4 = new Question("What year is it?", ["2021", "2022", "2020"], "2021");
-
-        let questionsArray = [question1, question2, question3, question4];
-        questionsArray[Math.floor(Math.random() * 4)].randomQuestion();
 
 
+        // Question.prototype.randomQuestion = function () {
+        //     let promptAnswer;
+        //     let scoreCount = 0;
+        //     console.log(this.questions + "\n" + "\n" + this.answers + "\n")
+        //     promptAnswer = prompt("Write 'exit' if you want to stop playing\n" + "What is your Answer? ");
+        //     if (promptAnswer == "exit") {
+        //         return;
+        //     }
+        //     else if (this.answers[promptAnswer] == this.correctAnswer) {
+        //         console.log("You got it right!!");
+        //         console.log("You have a score of " + scoreCount + 1);
 
 
+        //     } else {
 
+        //         console.log("I'm sorry, " + this.correctAnswer + " was the correct answer!")
+        //         console.log("You have a score of " + scoreCount)
+
+        //     }
+        // }
 
 
 
